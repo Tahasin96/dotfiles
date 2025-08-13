@@ -64,7 +64,7 @@
 
   "custom/disk": {
     "exec": "~/.config/waybar/scripts/disk.sh",
-    "interval": 60,
+    "interval": 600,
     "escape": false
 
   },
