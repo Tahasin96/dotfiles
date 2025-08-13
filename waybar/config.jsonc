@@ -1,0 +1,108 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 37,
+  "margin-top": 14,
+  "width": 1888,
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": [],
+  "modules-right": [
+    "custom/updates",
+    "pulseaudio",
+    "custom/cpu",
+    "custom/ram",
+    "custom/disk",
+    "battery",
+    "custom/datetime",
+    "tray"
+  ],
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+        "1": "一",
+        "2": "二",
+        "3": "三",
+        "4": "四",
+        "5": "五",
+        "6": "六",
+        "7": "七",
+        "8": "八",
+        "9": "九",
+        "default": "　"
+    },
+    "persistent-workspaces": {
+        "*": [1,2,3,4,5,6,7,8,9]
+    }
+},
+
+
+
+  "custom/updates": {
+    "exec": "checkupdates | wc -l",
+    "interval": 3600,
+    "format": " {} updates"   
+  },
+
+  
+
+  "custom/cpu": {
+    "exec": "~/.config/waybar/scripts/cpu.sh",
+    "interval": 5,
+    "escape": false
+  },
+
+  "custom/ram": {
+    "exec": "~/.config/waybar/scripts/ram.sh",
+    "interval": 5,
+    
+    "escape": false
+
+  },
+
+  "custom/disk": {
+    "exec": "~/.config/waybar/scripts/disk.sh",
+    "interval": 60,
+    "escape": false
+
+  },
+
+
+
+  
+
+  "custom/datetime": {
+    "exec": "~/.config/waybar/scripts/datetime.sh",
+    "interval": 5,
+    "escape": false
+
+  },
+
+  "pulseaudio": {
+  "format": "{icon} {volume}%",
+  "format-muted": " 0%",
+  "format-icons": {
+    "headphones": "",
+    "default": ["", "", ""]
+  },
+  "on-click": "pamixer -t",      // toggle mute on click
+  "on-scroll-up": "pamixer -i 5", // volume up
+  "on-scroll-down": "pamixer -d 5", // volume down
+  "interval": 1
+  },
+ 
+  "custom/windowtitle": { 
+    "exec": "~/.config/waybar/scripts/window-title.sh",
+    "return-type": "json",
+    "restart-interval": 0
+  },
+
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 6
+  }
+}
+

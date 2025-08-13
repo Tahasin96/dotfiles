@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Temporary directory for previews
+PREVIEW_DIR="/tmp/cliphist_previews"
+mkdir -p "$PREVIEW_DIR"
+
+# Generate list with thumbnails for image entries
+CLIPHIST_LIST=$(cliphist list | while read -r line; do
+    if echo "$line" | grep -q "Image"; then
+        # Extract ID and make preview
+        ID=$(echo "$line" | awk '{print $1}')
+        PREVIEW_FILE="$PREVIEW_DIR/$ID.png"
+        cliphist decode "$ID" | grim - > "$PREVIEW_FILE" 2>/dev/null
+        echo -e "$line\timg:$PREVIEW_FILE"
+    else
+        echo "$line"
+    fi
+done)
+
+# Show menu with Wofi (image support)
+SELECTED=$(echo -e "$CLIPHIST_LIST" | wofi --show dmenu --allow-images --lines=10 --width=50)
+
+# Restore selected entry to clipboard
+if [ -n "$SELECTED" ]; then
+    ID=$(echo "$SELECTED" | awk '{print $1}')
+    cliphist decode "$ID" | wl-copy
+fi
+
